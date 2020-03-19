@@ -12,9 +12,17 @@ public class GameController : MonoBehaviour
     private int currentScore = 0;
     private int scoreMultiplier;
 
+    public Vector3 ScreenSize;
+
     public List<ObstacleCourse> obstacleCourses = new List<ObstacleCourse>();
 
     public CourseDifficulty _CourseDifficulty { get; }
+
+    private void Awake()
+    {
+        //Calculate screen size
+        ScreenSize = new Vector3((Camera.main.orthographicSize * Screen.width / Screen.height) * 2, Camera.main.orthographicSize * 2, 1);
+    }
 
     private void Start()
     {

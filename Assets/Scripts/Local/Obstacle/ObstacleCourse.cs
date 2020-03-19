@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class ObstacleCourse : MonoBehaviour
 {
-    [SerializeField] private Course[] courses_Beginner;
-    [SerializeField] private Course[] courses_Intermediate;
-    [SerializeField] private Course[] courses_Expert;
-    [SerializeField] private Course[] courses_Hellish;
+    private List<Course> courses_Beginner = new List<Course>();
+    private List<Course> courses_Intermediate = new List<Course>();
+    private List<Course> courses_Expert = new List<Course>();
+    private List<Course> courses_Hellish = new List<Course>();
 
     private Course[] obstacleCourses;
     private GameController gameController;
     private ObstacleSpawner obstacleSpawner;
     private BoxCollider2D boxCollider;
-    private Vector3 screenSize;
     
     private void Awake()
     {
@@ -25,11 +24,31 @@ public class ObstacleCourse : MonoBehaviour
         //Store all courses
         obstacleCourses = GetComponentsInChildren<Course>();
 
-        //Calculate screen size
-        screenSize = new Vector3((Camera.main.orthographicSize * Screen.width / Screen.height) * 2, Camera.main.orthographicSize * 2, 1);
+        foreach(Course course in obstacleCourses)
+        {
+            if(course.name.Contains("Beginner"))
+            {
+                courses_Beginner.Add(course);
+            }
+
+            else if (course.name.Contains("Intermediate"))
+            {
+                courses_Intermediate.Add(course);
+            }
+
+            else if (course.name.Contains("Expert"))
+            {
+                courses_Expert.Add(course);
+            }
+
+            else if (course.name.Contains("Hellish"))
+            {
+                courses_Hellish.Add(course);
+            }
+        }
 
         //Set Collider size
-        boxCollider.size = screenSize;
+        boxCollider.size = gameController.ScreenSize;
     }
 
     private void OnEnable()
@@ -67,23 +86,23 @@ public class ObstacleCourse : MonoBehaviour
         }
     }
 
-    void RandomizeCourse(Course[] courses)
+    void RandomizeCourse(List<Course> courses)
     {
         StartCoroutine(_RandomizeCourse(courses));
     }
 
-    IEnumerator _RandomizeCourse(Course[] courses)
+    IEnumerator _RandomizeCourse(List<Course> courses)
     {
         yield return null;
 
         //Checker
-        if (courses.Length == 0)
+        if (courses.Count == 0)
         {
             Debug.Log("Not enough courses");
             yield break;
         }
 
-        int randInt = Random.Range(0, courses.Length);
+        int randInt = Random.Range(0, courses.Count);
 
         //Enable randomized course 
         courses[randInt].gameObject.SetActive(true);
