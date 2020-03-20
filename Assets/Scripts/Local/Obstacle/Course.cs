@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Course : MonoBehaviour
 {
+    private Obstacle[] obstacles;
+
+    private void Awake()
+    {
+        obstacles = GetComponentsInChildren<Obstacle>();
+    }
+
     private void OnEnable()
     {
-        Obstacle[] obstacles = GetComponentsInChildren<Obstacle>();
         foreach (Obstacle obstacle in obstacles)
         {
             obstacle.gameObject.SetActive(true);
@@ -15,7 +21,6 @@ public class Course : MonoBehaviour
 
     private void OnDisable()
     {
-        Obstacle[] obstacles = GetComponentsInChildren<Obstacle>();
         foreach(Obstacle obstacle in obstacles)
         {
             obstacle.gameObject.SetActive(false);

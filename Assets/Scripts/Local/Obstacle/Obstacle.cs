@@ -74,6 +74,9 @@ public class Obstacle : MonoBehaviour
                     case ObstacleEffect.ScoreMultiplier:
                         gameController.UpdateScoreMultiplier(scoreMultiplier, multiplierDuration);
                         break;
+
+                    default:
+                        break;
                         
                 }
 

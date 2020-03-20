@@ -23,6 +23,7 @@ public enum Colors //Used by PlayerController and Obstacles
 #region Obstacles
 public enum ObstacleEffect
 {
+    None,
     NullifyVelocity,
     AddForce,
     ScoreMultiplier

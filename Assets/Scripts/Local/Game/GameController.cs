@@ -9,14 +9,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI launchCountText;
     [SerializeField] private TextMeshProUGUI scoreText;
 
+    [SerializeField] private int[] difficultyThresholds;
+
     private int currentScore = 0;
     private int scoreMultiplier;
 
-    public Vector3 ScreenSize;
-
-    public List<ObstacleCourse> obstacleCourses = new List<ObstacleCourse>();
-
-    public CourseDifficulty _CourseDifficulty { get; }
+    [HideInInspector] public Vector3 ScreenSize;
+    [HideInInspector] public List<ObstacleCourse> obstacleCourses = new List<ObstacleCourse>();
+    public CourseDifficulty _CourseDifficulty;
 
     private void Awake()
     {
@@ -38,6 +38,26 @@ public class GameController : MonoBehaviour
     {
         currentScore += score * scoreMultiplier;
         scoreText.text = currentScore.ToString();
+
+        UpdateDifficulty();
+    }
+
+    void UpdateDifficulty()
+    {
+        if (_CourseDifficulty == CourseDifficulty.Hellish)
+            return;
+
+        CourseDifficulty gameDifficulty = _CourseDifficulty;
+
+        for(int i = 0; i < difficultyThresholds.Length; i++)
+        {
+            if(currentScore >= difficultyThresholds[i])
+            {
+                gameDifficulty = (CourseDifficulty)i;
+            }
+        }
+
+        _CourseDifficulty = gameDifficulty;
     }
 
     public void UpdateScoreMultiplier(int multiplier, float duration = Mathf.Infinity)

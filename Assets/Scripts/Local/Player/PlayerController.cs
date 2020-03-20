@@ -70,16 +70,16 @@ public class PlayerController : MonoBehaviour
 
         while(currentLaunchChance > 0)
         {
-#if UNITY_IOS || UNITY_ANDROID
+            #if UNITY_IOS || UNITY_ANDROID
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    //Enable Gravity
-                    if (rb.gravityScale < 1f)
-                        rb.gravityScale = 1f;
+                    ////Enable Gravity
+                    //if (rb.gravityScale < 1f)
+                    //    rb.gravityScale = 1f;
 
                     touchTime = Time.time;
                     startPointHolder = touch.position;
@@ -135,15 +135,15 @@ public class PlayerController : MonoBehaviour
                     screenPressParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 }
             }
-#endif
+            #endif
 
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
             //Controls for UnityEditor. Can remove during release or just keep it here for future implementations
             if (Input.GetMouseButtonDown(0))
             {
-                //Enable Gravity
-                if (rb.gravityScale < 1f)
-                    rb.gravityScale = 1f;
+                ////Enable Gravity
+                //if (rb.gravityScale < 1f)
+                //    rb.gravityScale = 1f;
 
                 touchTime = Time.time;
                 startPointHolder = Input.mousePosition;
@@ -233,8 +233,8 @@ public class PlayerController : MonoBehaviour
         //Reset velocity
         NullifyVelocity();
 
-        //Disable Gravity
-        rb.gravityScale = 0f;
+        ////Disable Gravity
+        //rb.gravityScale = 0f;
 
         //Add force to ball based on drag direction
         Vector2 force = new Vector2(Mathf.Clamp(startPoint.x - endPoint.x, -forceLimit, forceLimit), Mathf.Clamp(startPoint.y - endPoint.y, -forceLimit, forceLimit));
