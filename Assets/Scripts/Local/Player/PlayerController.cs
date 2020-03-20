@@ -70,13 +70,17 @@ public class PlayerController : MonoBehaviour
 
         while(currentLaunchChance > 0)
         {
-            #if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
 
                 if (touch.phase == TouchPhase.Began)
                 {
+                    //Enable Gravity
+                    if (rb.gravityScale < 1f)
+                        rb.gravityScale = 1f;
+
                     touchTime = Time.time;
                     startPointHolder = touch.position;
                 }
@@ -131,12 +135,16 @@ public class PlayerController : MonoBehaviour
                     screenPressParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 }
             }
-            #endif
-            
-            #if UNITY_EDITOR
+#endif
+
+#if UNITY_EDITOR
             //Controls for UnityEditor. Can remove during release or just keep it here for future implementations
             if (Input.GetMouseButtonDown(0))
             {
+                //Enable Gravity
+                if (rb.gravityScale < 1f)
+                    rb.gravityScale = 1f;
+
                 touchTime = Time.time;
                 startPointHolder = Input.mousePosition;
             }
@@ -194,10 +202,6 @@ public class PlayerController : MonoBehaviour
     #region Functionalities
     void OnDrag()
     {
-        //Enable Gravity
-        if (rb.gravityScale < 1f)
-            rb.gravityScale = 1f;
-
         //Enable Slow Motion during drag
         TimeManager.Instance.ManipulateTimeScale(slowMotionSpeed);
 
@@ -245,6 +249,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        //Despawn particle effect
+        screenPressParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
         //Vibrate device
         #if UNITY_IPHONE || UNITY_ANDROID
         //if(SettingManager.Instance.CanVibrate)
