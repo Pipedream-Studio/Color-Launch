@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         //gameController.UpdateLaunchNumberUI(currentLaunchChance);
     }
     #endregion
-    
+
     #region Controls
     IEnumerator EnableDragging()
     {
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             #endif
-
+            
             #if UNITY_EDITOR
             //Controls for UnityEditor. Can remove during release or just keep it here for future implementations
             if (Input.GetMouseButtonDown(0))
@@ -171,7 +171,8 @@ public class PlayerController : MonoBehaviour
                 //Else, if drag
                 else
                 {
-                    Launch();
+                    if(startPointHolder != Input.mousePosition)
+                        Launch();
                 }
 
                 //Reset touch time
@@ -193,6 +194,10 @@ public class PlayerController : MonoBehaviour
     #region Functionalities
     void OnDrag()
     {
+        //Enable Gravity
+        if (rb.gravityScale < 1f)
+            rb.gravityScale = 1f;
+
         //Enable Slow Motion during drag
         TimeManager.Instance.ManipulateTimeScale(slowMotionSpeed);
 
@@ -223,6 +228,9 @@ public class PlayerController : MonoBehaviour
 
         //Reset velocity
         NullifyVelocity();
+
+        //Disable Gravity
+        rb.gravityScale = 0f;
 
         //Add force to ball based on drag direction
         Vector2 force = new Vector2(Mathf.Clamp(startPoint.x - endPoint.x, -forceLimit, forceLimit), Mathf.Clamp(startPoint.y - endPoint.y, -forceLimit, forceLimit));
@@ -379,7 +387,8 @@ public class PlayerController : MonoBehaviour
 
     public void AddForce(float multiplier)
     {
-        rb.velocity *= multiplier;
+        Vector2 normalizedVelocity = rb.velocity.normalized;
+        rb.AddForce(normalizedVelocity * multiplier, ForceMode2D.Impulse);
     }
     #endregion
 }

@@ -126,5 +126,5 @@ MonoBehaviour:
   score: 1
   scoreMultiplier: 2
   multiplierDuration: 5
-  addForce: 1.5
+  addForce: 10
   myEffect: 1
