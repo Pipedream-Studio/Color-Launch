@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour
         {   
             float targetY = m_Target.position.y + m_YOffset;
 
-            if (targetY >= gameController.currentCourse.transform.position.y + (gameController.ScreenSize.y / 20))
+            if (maxHeight >= gameController.currentCourse.transform.position.y)
                 return;
 
             if (Mathf.Abs(transform.position.y - targetY) > margin)

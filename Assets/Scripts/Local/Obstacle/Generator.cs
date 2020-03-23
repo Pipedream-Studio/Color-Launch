@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Generator : Obstacle
 {
+    #region Functionalities
+    void UpdateGate()
+    {
+
+    }
+    #endregion 
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.tag == "Player")
@@ -12,6 +19,8 @@ public class Generator : Obstacle
 
             SetMyColor((int)player.MyCurrentColor);
             gameController.UpdateScore(score);
+
+            UpdateGate();
         }
     }
 }
