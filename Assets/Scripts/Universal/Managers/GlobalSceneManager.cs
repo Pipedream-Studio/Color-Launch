@@ -47,43 +47,33 @@ public class GlobalSceneManager : MonoBehaviour
     public void ChangeScene(int sceneInt)
     {
         SceneManager.LoadScene(sceneInt);
-        AudioManager.Instance.myBGMSource.Stop();
-        AudioManager.Instance.myBGMSource.clip = null;
     }
 
     public void ChangeScene(string sceneString)
     {
         SceneManager.LoadScene(sceneString);
-        AudioManager.Instance.myBGMSource.Stop();
-        AudioManager.Instance.myBGMSource.clip = null;
     }
 
     public void ChangeScene(SceneField scene)
     {
         SceneManager.LoadScene(scene);
-        AudioManager.Instance.myBGMSource.Stop();
-        AudioManager.Instance.myBGMSource.clip = null;
     }
 
     public void ChangeSceneWithDelay(int sceneInt, float waitDuration)
     {
         StartCoroutine(DelayChange(sceneInt, waitDuration));
-        AudioManager.Instance.myBGMSource.Stop();
-        AudioManager.Instance.myBGMSource.clip = null;
     }
 
     public void ChangeSceneWithDelay(string sceneName, float waitDuration)
     {
         StartCoroutine(DelayChange(sceneName, waitDuration));
-        AudioManager.Instance.myBGMSource.Stop();
-        AudioManager.Instance.myBGMSource.clip = null;
     }
 
     public void ChangeSceneWithDelay(SceneField scene, float waitDuration)
     {
         StartCoroutine(DelayChange(scene, waitDuration));
-        AudioManager.Instance.myBGMSource.Stop();
-        AudioManager.Instance.myBGMSource.clip = null;
+        //AudioManager.Instance.myBGMSource.Stop();
+        //AudioManager.Instance.myBGMSource.clip = null;
     }
 
     IEnumerator DelayChange(int sceneInt, float waitDuration)

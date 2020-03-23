@@ -117,10 +117,15 @@ public class ObstacleCourse : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //If this obstacle course is the newest course, disable oldest course
-        if(other.tag == "Player" && this == gameController.obstacleCourses[gameController.obstacleCourses.Count - 1])
-        {
-            obstacleSpawner.SpawnObstacles();
-            gameController.obstacleCourses[0].DisableCourse();
+        if(other.tag == "Player")
+        { 
+            gameController.currentCourse = this;
+
+            if (this == gameController.obstacleCourses[gameController.obstacleCourses.Count - 1])
+            {
+                obstacleSpawner.SpawnObstacles();
+                gameController.obstacleCourses[0].DisableCourse();
+            }
         }
     }
 }

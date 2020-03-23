@@ -77,10 +77,6 @@ public class PlayerController : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    ////Enable Gravity
-                    //if (rb.gravityScale < 1f)
-                    //    rb.gravityScale = 1f;
-
                     touchTime = Time.time;
                     startPointHolder = touch.position;
                 }
@@ -141,10 +137,6 @@ public class PlayerController : MonoBehaviour
             //Controls for UnityEditor. Can remove during release or just keep it here for future implementations
             if (Input.GetMouseButtonDown(0))
             {
-                ////Enable Gravity
-                //if (rb.gravityScale < 1f)
-                //    rb.gravityScale = 1f;
-
                 touchTime = Time.time;
                 startPointHolder = Input.mousePosition;
             }
@@ -207,6 +199,7 @@ public class PlayerController : MonoBehaviour
 
         startPoint = mainCamera.ScreenToWorldPoint(startPointHolder);
         currentPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        endPoint = currentPoint;
 
         DrawTrajectoryLine();
         RotateRenderer();
@@ -228,13 +221,10 @@ public class PlayerController : MonoBehaviour
 
         //Launching code snippet
         startPoint = mainCamera.ScreenToWorldPoint(startPointHolder);
-        endPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        //endPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         //Reset velocity
         NullifyVelocity();
-
-        ////Disable Gravity
-        //rb.gravityScale = 0f;
 
         //Add force to ball based on drag direction
         Vector2 force = new Vector2(Mathf.Clamp(startPoint.x - endPoint.x, -forceLimit, forceLimit), Mathf.Clamp(startPoint.y - endPoint.y, -forceLimit, forceLimit));
@@ -259,6 +249,8 @@ public class PlayerController : MonoBehaviour
         #endif
 
         //Spawn particles
+
+        gameController.RestartGame();
 
         Destroy(gameObject);
     }

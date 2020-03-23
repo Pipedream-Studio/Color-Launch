@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
 
     [HideInInspector] public Vector3 ScreenSize;
     [HideInInspector] public List<ObstacleCourse> obstacleCourses = new List<ObstacleCourse>();
+    [HideInInspector] public ObstacleCourse currentCourse;
     public CourseDifficulty _CourseDifficulty;
 
     private void Awake()
@@ -27,6 +28,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         scoreMultiplier = 1;
+
+        StartCoroutine(SetCurrentCourseAtStart());
     }
 
     public void UpdateLaunchNumberUI(int launchCount)
@@ -72,5 +75,16 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         scoreMultiplier = 1;
+    }
+
+    IEnumerator SetCurrentCourseAtStart()
+    {
+        yield return new WaitForSeconds(.2f);
+        currentCourse = obstacleCourses[0];
+    }
+
+    public void RestartGame()
+    {
+
     }
 }

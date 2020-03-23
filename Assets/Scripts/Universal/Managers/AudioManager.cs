@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-	[HideInInspector] public AudioSource myBGMSource;
-    [HideInInspector] public AudioSource mySFXSource;
+	private AudioSource myBGMSource;
+    private AudioSource mySFXSource;
 
-    [Space(3)]
-    [Header("Setting Components")]
-    [SerializeField] private Text BGMText;
-    [SerializeField] private Text SFXText;
-    [SerializeField] private Slider BGMSlider;
-    [SerializeField] private Slider SFXSlider;
+    //[Space(3)]
+    //[Header("Setting Components")]
+    //[SerializeField] private Text BGMText;
+    //[SerializeField] private Text SFXText;
+    //[SerializeField] private Slider BGMSlider;
+    //[SerializeField] private Slider SFXSlider;
 
     #region Singleton
     private static AudioManager mInstance;
@@ -54,11 +54,14 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        myBGMSource.volume = PlayerPrefs.GetFloat("BGMVolume", .75f);
-        mySFXSource.volume = PlayerPrefs.GetFloat("SFXVolume", .75f);
+        myBGMSource.volume = PlayerPrefs.GetInt("BGMOn", 1);
+        mySFXSource.volume = PlayerPrefs.GetInt("SFXOn", 1);
 
-        BGMSlider.value = myBGMSource.volume;
-        SFXSlider.value = mySFXSource.volume;
+        //myBGMSource.volume = PlayerPrefs.GetFloat("BGMVolume", .75f);
+        //mySFXSource.volume = PlayerPrefs.GetFloat("SFXVolume", .75f);
+
+        //BGMSlider.value = myBGMSource.volume;
+        //SFXSlider.value = mySFXSource.volume;
     }
 
 	public void PlaySFX(AudioClip audio)
@@ -72,26 +75,42 @@ public class AudioManager : MonoBehaviour
     }
 
     #region Settings
-    public void ChangeBGMVolume(Slider mySlider)
+    public void EnableBGM(bool enableBGM)
     {
-        myBGMSource.volume = mySlider.value;
+        myBGMSource.enabled = enableBGM;
 
-        int roundOffValue = (int)(mySlider.value * 100);
-        BGMText.text = roundOffValue.ToString();
-
-        PlayerPrefs.SetFloat("BGMVolume", myBGMSource.volume);
+        PlayerPrefs.SetInt("BGMOn", enableBGM.GetHashCode());
         PlayerPrefs.Save();
     }
 
-    public void ChangeSFXVolume(Slider mySlider)
+    public void EnableSFX(bool enableSFX)
     {
-        mySFXSource.volume = mySlider.value;
+        mySFXSource.enabled = enableSFX;
 
-        int roundOffValue = (int)(mySlider.value * 100);
-        SFXText.text = roundOffValue.ToString();
-
-        PlayerPrefs.SetFloat("SFXVolume", mySFXSource.volume);
+        PlayerPrefs.SetInt("SFXOn", enableSFX.GetHashCode());
         PlayerPrefs.Save();
     }
+
+    //public void ChangeBGMVolume(Slider mySlider)
+    //{
+    //    myBGMSource.volume = mySlider.value;
+
+    //    int roundOffValue = (int)(mySlider.value * 100);
+    //    BGMText.text = roundOffValue.ToString();
+
+    //    PlayerPrefs.SetFloat("BGMVolume", myBGMSource.volume);
+    //    PlayerPrefs.Save();
+    //}
+
+    //public void ChangeSFXVolume(Slider mySlider)
+    //{
+    //    mySFXSource.volume = mySlider.value;
+
+    //    int roundOffValue = (int)(mySlider.value * 100);
+    //    SFXText.text = roundOffValue.ToString();
+
+    //    PlayerPrefs.SetFloat("SFXVolume", mySFXSource.volume);
+    //    PlayerPrefs.Save();
+    //}
     #endregion
 }

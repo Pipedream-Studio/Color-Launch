@@ -14,22 +14,31 @@ public class CameraMovement : MonoBehaviour
 
     private float maxHeight = 0f;
 
-    void Start()
+    private GameController gameController;
+
+    void Awake()
     {
         if (m_Target == null)
         {
             m_Target = GameObject.FindGameObjectWithTag("Player").transform;
+            gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         }
     }
 
     void FixedUpdate()
     {
+        if (gameController.currentCourse == null)
+            return;
+
         if (m_Target)
-        {
+        {   
             float targetY = m_Target.position.y + m_YOffset;
 
+            if (targetY >= gameController.currentCourse.transform.position.y + (gameController.ScreenSize.y / 20))
+                return;
+
             if (Mathf.Abs(transform.position.y - targetY) > margin)
-                targetY = Mathf.Lerp(transform.position.y, targetY, m_DampTime * Time.deltaTime);
+            targetY = Mathf.Lerp(transform.position.y, targetY, m_DampTime * Time.deltaTime);
 
             if (targetY >= maxHeight)
             {

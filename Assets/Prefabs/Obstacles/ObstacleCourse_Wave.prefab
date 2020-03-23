@@ -176,14 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262b903b06d539040ab822d9f7eef617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  courses_Beginner:
-  - {fileID: 2307393672809213508}
-  - {fileID: 1601116769028760479}
-  - {fileID: 7600521888354864582}
-  - {fileID: 9211529645112416516}
-  courses_Intermediate: []
-  courses_Expert: []
-  courses_Hellish: []
 --- !u!1 &2884864260916463592
 GameObject:
   m_ObjectHideFlags: 0

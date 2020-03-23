@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9059153639532834192}
   - component: {fileID: 9059153639532834194}
   - component: {fileID: 9059153639532834193}
-  - component: {fileID: 6628465818482747144}
+  - component: {fileID: 5369091872876094909}
   m_Layer: 0
-  m_Name: Obstacle
+  m_Name: Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6628465818482747144
+--- !u!114 &5369091872876094909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
